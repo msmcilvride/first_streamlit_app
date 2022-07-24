@@ -1,5 +1,7 @@
-import pandas
 import requests
+from urllib.error import URLError
+
+import pandas
 import snowflake.connector
 import streamlit
 
@@ -32,6 +34,9 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_c
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # show normalized response
 streamlit.dataframe(fruityvice_normalized)
+
+# troubleshooting
+streamlit.stop()
 
 # snowflake
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
